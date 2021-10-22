@@ -2,7 +2,9 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { GET_VERSIONS } from "../gql/query";
 
-const Versions = ({ getTab }) => {
+import Description from "./description";
+
+const Versions = () => {
   const [versions, setVersion] = useState(null);
   const [openTab, setOpenTab] = useState(1);
   const { data, loading } = useQuery(GET_VERSIONS);
@@ -11,9 +13,7 @@ const Versions = ({ getTab }) => {
     if (data) {
       setVersion(data.versions);
     }
-  }, []); //Setting the useState hook with all the version once component is rendered.
-
-  getTab(openTab); // Passing a prop from child to parent
+  }, [data]); //Setting the useState hook with all the version once component is rendered.
 
   let date = ""; // We will use this below in JSX to parse string as date.
 
@@ -54,6 +54,7 @@ const Versions = ({ getTab }) => {
             );
           })
           .reverse()}
+      <Description openedTab={openTab} />
     </>
   );
 };

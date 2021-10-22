@@ -13,7 +13,7 @@ const Description = ({ openedTab }) => {
       let description = data.versions.map((item) => item.description);
       setDescription(description);
     }
-  }, []); // We are fetching 'Description' object and feeding it to useState hook
+  }, [data]); // We are fetching 'Description' object and feeding it to useState hook
 
   return (
     <>
@@ -21,7 +21,7 @@ const Description = ({ openedTab }) => {
         !loading &&
         description.map((data, index) => {
           return (
-            <div className="tab-content tab-space">
+            <div className="tab-content tab-space" key={index}>
               <div
                 className={openedTab === index + 1 ? "block" : "hidden"}
                 id={`link${index + 1}`}
