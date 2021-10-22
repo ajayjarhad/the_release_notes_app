@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider, InMemoryCache, ApolloClient } from "@apollo/client";
+import { Helmet } from "react-helmet";
+
+import UI from "./components/ui";
+
+//Connecting with the Canonic API
+const client = new ApolloClient({
+  uri: "https://release-notes-app.can.canonic.dev/graphql",
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Helmet>
+        <title>The Release Notes App</title>
+      </Helmet>
+      <div className="App" style={{ height: "100vh" }}>
+        <UI />
+      </div>
+    </ApolloProvider>
   );
 }
 
