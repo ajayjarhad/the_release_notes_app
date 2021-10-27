@@ -13,7 +13,7 @@ const Main = () => {
       let getVersions = data.versions;
       setVersions(getVersions);
     }
-  }, [data]); // We are fetching 'Description' object and feeding it to useState hook
+  }, [data]); // We are fetching 'Versions' and feeding it to useState hook
 
   return (
     <>
@@ -79,10 +79,6 @@ const Main = () => {
             </div>
           );
         })}
-
-      {/* </> 
-           );
-         })} */}
     </>
   );
 };
