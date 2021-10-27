@@ -1,18 +1,19 @@
 import Header from "./header";
-import Versions from "./versions";
+import Sidebar from "./Sidebar";
+import Main from "./Main";
 
 const UI = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-wrap h-full">
-        <div className="max-w-6xl mx-auto px-4 flex flex-row">
-          <ul
-            className="mb-0 list-none flex-wrap justify-between pt-3 pb-4 flex flex-col h-64 mt-20 "
-            role="tablist"
-          >
-            <Versions />
+      <div className="min-h-screen flex flex-row ">
+        <div className="flex flex-col bg-blue-500 text-white w-96">
+          <ul className="flex flex-col py-4 sticky top-0">
+            <Sidebar />
           </ul>
+        </div>
+        <div>
+          <Main />
         </div>
       </div>
     </>

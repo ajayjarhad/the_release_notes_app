@@ -4,30 +4,34 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { GET_VERSIONS } from "../gql/query";
 
-const Description = ({ openedTab }) => {
-  const [description, setDescription] = useState(null);
+const Main = () => {
+  const [versions, setVersions] = useState();
   const { data, loading } = useQuery(GET_VERSIONS);
 
   useEffect(() => {
     if (data) {
-      let description = data.versions.map((item) => item.description);
-      setDescription(description);
+      let getVersions = data.versions;
+      setVersions(getVersions);
     }
   }, [data]); // We are fetching 'Description' object and feeding it to useState hook
 
   return (
     <>
-      {description &&
+      {versions &&
         !loading &&
-        description.map((data, index) => {
+        versions.map((data, index) => {
           return (
-            <div className="tab-content tab-space" key={index}>
+            <div className="tab-content tab-space w-5/6" key={index}>
               <div
-                className={openedTab === index + 1 ? "block" : "hidden"}
-                id={`link${index + 1}`}
+                className={
+                  "text-white bg-blue-600 text-center text-2xl p-2 mt-16 w-40 my-8 mx-auto"
+                }
               >
+                Version {data.version}
+              </div>
+              <div className={"block"}>
                 <div>
-                  {data.map((item) => {
+                  {data.description.map((item) => {
                     // The Description in our API is a 'field set' and it two fields, 1. Details and  2. Label
                     const details = item.details; // Here we are accessing the details, details contains all the text.
                     const label = item.types.label; // Here we are accessing picker option's label. There are total 4 labels. 1. Security Fixes 2. Bug fixes, 3. Changes and 4. Know issue
@@ -49,8 +53,13 @@ const Description = ({ openedTab }) => {
                       default:
                         color = "";
                     }
+
                     return (
-                      <div className="flex flex-col">
+                      <section
+                        className="flex flex-col  mb-10"
+                        id={`version${data.version}`}
+                      >
+                        {" "}
                         <div
                           className={`${color} w-28 h-8 leading-8 ml-10 text-center font-bold shadow-lg mt-10 mb-3 text-white`}
                         >
@@ -62,7 +71,7 @@ const Description = ({ openedTab }) => {
                             __html: details,
                           }}
                         ></div>
-                      </div>
+                      </section>
                     );
                   })}
                 </div>
@@ -70,8 +79,12 @@ const Description = ({ openedTab }) => {
             </div>
           );
         })}
+
+      {/* </> 
+           );
+         })} */}
     </>
   );
 };
 
-export default Description;
+export default Main;
